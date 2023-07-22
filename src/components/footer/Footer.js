@@ -15,7 +15,7 @@ function Footer() {
     )
     return (
         <footer className="main-footer">
-            <strong>&copy; 2022 {webinfo && webinfo.footer ? webinfo.footer : ""}</strong>
+            <strong>&copy; {new Date().getFullYear()} {webinfo && webinfo.footer ? webinfo.footer : ""}</strong>
         </footer>
     )
 }
