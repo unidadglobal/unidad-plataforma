@@ -40,7 +40,7 @@ const WebcamPlayer = ({ broadcastId }) => {
            connection.autoCloseEntireSession = true;
   
            // by default, socket.io server is assumed to be deployed on your own URL
-           connection.socketURL = 'https://www.unidadglobal.org:9001/';
+           connection.socketURL = 'https://panel.unidadglobal.com:9001/';
   
            // comment-out below line if you do not have your own socket.io server
            //connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
@@ -89,22 +89,22 @@ const WebcamPlayer = ({ broadcastId }) => {
                  console.error('broadcast-stopped', broadcastId);
               });
   
-              // this event is emitted when a broadcast is absent.
-              socket.on('start-broadcasting', function (typeOfStreams) {
-                 console.log('start-broadcasting', typeOfStreams);
+            //   // this event is emitted when a broadcast is absent.
+            //   socket.on('start-broadcasting', function (typeOfStreams) {
+            //      console.log('start-broadcasting', typeOfStreams);
   
-                 // host i.e. sender should always use this!
-                 connection.sdpConstraints.mandatory = {
-                    OfferToReceiveVideo: false,
-                    OfferToReceiveAudio: false
-                 };
-                 connection.session = typeOfStreams;
+            //      // host i.e. sender should always use this!
+            //      connection.sdpConstraints.mandatory = {
+            //         OfferToReceiveVideo: false,
+            //         OfferToReceiveAudio: false
+            //      };
+            //      connection.session = typeOfStreams;
   
-                 // "open" method here will capture media-stream
-                 // we can skip this function always; it is totally optional here.
-                 // we can use "connection.getUserMediaHandler" instead
-                 connection.open(connection.userid);
-              });
+            //      // "open" method here will capture media-stream
+            //      // we can skip this function always; it is totally optional here.
+            //      // we can use "connection.getUserMediaHandler" instead
+            //      //connection.open(connection.userid);
+            //   });
            });
   
            var videoPreview = document.getElementById('stream-player');
@@ -183,31 +183,31 @@ const WebcamPlayer = ({ broadcastId }) => {
   
                  connection.isUpperUserLeft = true;
   
-                 if (connection.currentRecorder) {
-                    var recorder = connection.currentRecorder;
-                    connection.currentRecorder = null;
-                    recorder.stopRecording(function () {
-                       if (!connection.isUpperUserLeft) return;
+               //   if (connection.currentRecorder) {
+               //      var recorder = connection.currentRecorder;
+               //      connection.currentRecorder = null;
+               //      recorder.stopRecording(function () {
+               //         if (!connection.isUpperUserLeft) return;
   
-                       videoPreview.src = URL.createObjectURL(recorder.getBlob());
-                       videoPreview.play();
-                    });
-                 }
+               //         videoPreview.src = URL.createObjectURL(recorder.getBlob());
+               //         videoPreview.play();
+               //      });
+               //   }
   
-                 if (connection.currentRecorder) {
-                    connection.currentRecorder.stopRecording();
-                    connection.currentRecorder = null;
-                 }
+               //   if (connection.currentRecorder) {
+               //      connection.currentRecorder.stopRecording();
+               //      connection.currentRecorder = null;
+               //   }
               });
            };
            
            connection.extra.broadcastId = broadcastId;
   
-           connection.session = {
-              audio: true,
-              video: true,
-              oneway: true
-           };
+         //   connection.session = {
+         //      audio: true,
+         //      video: true,
+         //      oneway: true
+         //   };
   
            connection.getSocket(function (socket) {
               socket.emit('check-broadcast-presence', broadcastId, function (isBroadcastExists) {
@@ -218,11 +218,11 @@ const WebcamPlayer = ({ broadcastId }) => {
   
                  console.log('check-broadcast-presence', broadcastId, isBroadcastExists);
   
-                 socket.emit('join-broadcast', {
-                    broadcastId: broadcastId,
-                    userid: connection.userid,
-                    typeOfStreams: connection.session
-                 });
+               //   socket.emit('join-broadcast', {
+               //      broadcastId: broadcastId,
+               //      userid: connection.userid,
+               //      typeOfStreams: connection.session
+               //   });
               });
            });
         }
